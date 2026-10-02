@@ -8,13 +8,14 @@
 </head>
 <body>
     <div class="container" style="margin:40px;">
-        <h1 class="display-4">🎮 Game Collection</h1>
+        <h1 class="display-4"> Game Collection</h1>
         <table class="table">
             <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
                     <th>Game</th>
                     <th>Platform</th>
+                    <th>Genre</th>
                     <th>Rating</th>
                 </tr>
             </thead>
@@ -24,6 +25,7 @@
                         <td>{{ $game->id }}</td>
                         <td>{{ $game->game_name }}</td>
                         <td>{{ $game->platform }}</td>
+                        <td>{{ $game->genre }}</td>
                         <td>{{ $game->rating }}/10</td>
                     </tr>
                 @endforeach
