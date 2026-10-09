@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,12 @@
 </head>
 <body>
     <div class="container" style="margin:40px;">
-        <h1 class="display-4"> Game Collection</h1>
+        <h1 class="display-4">🎮 Game Collection</h1>
+
+        <a href="/games/create" class="btn btn-success mb-3">
+            🎮 Add Game
+        </a>
+
         <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -17,8 +23,10 @@
                     <th>Platform</th>
                     <th>Genre</th>
                     <th>Rating</th>
+                    <th>Edit</th>
                 </tr>
             </thead>
+
             <tbody>
                 @foreach($games as $game)
                     <tr>
@@ -27,6 +35,12 @@
                         <td>{{ $game->platform }}</td>
                         <td>{{ $game->genre }}</td>
                         <td>{{ $game->rating }}/10</td>
+                        <td>
+                            <a href="/games/edit/{{ $game->id }}"
+                               class="btn btn-primary btn-sm">
+                                Edit
+                            </a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -34,3 +48,4 @@
     </div>
 </body>
 </html>
+```
