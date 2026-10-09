@@ -13,6 +13,7 @@
                 <th>Platform</th>
                 <th>Genre</th>
                 <th>Rating</th>
+                <th>Show</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -30,6 +31,9 @@
                     <td>{{ $game->genre }}</td>
                     <td>{{ $game->rating }}/10</td>
                     <td>
+                        <a href="/games/show/{{ $game->id }}" class="btn btn-info btn-sm">Show</a>
+                    </td>
+                    <td>
                         <a href="/games/edit/{{ $game->id }}" class="btn btn-primary btn-sm">Edit</a>
                     </td>
                     <td>
@@ -46,6 +50,7 @@
                 <td>
                     <strong>{{ count($games) > 0 ? number_format($sum / count($games), 1) : 0 }}/10</strong>
                 </td>
+                <td></td>
                 <td></td>
                 <td></td>
             </tr>
