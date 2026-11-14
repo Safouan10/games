@@ -3,7 +3,10 @@
 @section('title', '🎮 Game Collection')
 
 @section('content')
-    <a href="/games/create" class="btn btn-success mb-3">Add Game</a>
+
+    @role('admin')
+        <a href="/games/create" class="btn btn-success mb-3">Add Game</a>
+    @endrole
 
     <table class="table">
         <thead class="thead-dark">
@@ -14,10 +17,17 @@
                 <th>Genre</th>
                 <th>Rating</th>
                 <th>Show</th>
-                <th>Edit</th>
-                <th>Delete</th>
+
+                @can('product aanpassen')
+                    <th>Edit</th>
+                @endcan
+
+                @can('product verwijderen')
+                    <th>Delete</th>
+                @endcan
             </tr>
         </thead>
+
         <tbody>
             @php($sum = 0)
 
@@ -30,18 +40,25 @@
                     <td>{{ $game->platform }}</td>
                     <td>{{ $game->genre }}</td>
                     <td>{{ $game->rating }}/10</td>
+
                     <td>
                         <a href="/games/show/{{ $game->id }}" class="btn btn-info btn-sm">Show</a>
                     </td>
-                    <td>
-                        <a href="/games/edit/{{ $game->id }}" class="btn btn-primary btn-sm">Edit</a>
-                    </td>
-                    <td>
-                        <form action="/games/destroy/{{ $game->id }}" method="post">
-                            @csrf
-                            <button onclick="return confirm('Weet je het zeker?')" class="btn btn-danger btn-sm" type="submit">Delete</button>
-                        </form>
-                    </td>
+
+                    @can('product aanpassen')
+                        <td>
+                            <a href="/games/edit/{{ $game->id }}" class="btn btn-primary btn-sm">Edit</a>
+                        </td>
+                    @endcan
+
+                    @can('product verwijderen')
+                        <td>
+                            <form action="/games/destroy/{{ $game->id }}" method="post">
+                                @csrf
+                                <button onclick="return confirm('Weet je het zeker?')" class="btn btn-danger btn-sm" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    @endcan
                 </tr>
             @endforeach
 
@@ -51,9 +68,16 @@
                     <strong>{{ count($games) > 0 ? number_format($sum / count($games), 1) : 0 }}/10</strong>
                 </td>
                 <td></td>
-                <td></td>
-                <td></td>
+
+                @can('product aanpassen')
+                    <td></td>
+                @endcan
+
+                @can('product verwijderen')
+                    <td></td>
+                @endcan
             </tr>
         </tbody>
     </table>
+
 @endsection
