@@ -18,15 +18,16 @@
             <a class="nav-item nav-link" href="{{ route('admin.permissions.index') }}">
                 Permissies beheren
             </a>
+            <a class="nav-item nav-link" href="{{ route('admin.roles.index') }}">
+                Rollen beheren
+            </a>
         </div>
     </nav>
 
     <div class="container" style="margin-top: 40px;">
-
         <h1 class="display-4">@yield('title')</h1>
 
         @yield('content')
-
     </div>
 
 </body>

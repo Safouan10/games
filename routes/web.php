@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 // Startpagina
@@ -18,7 +19,7 @@ Route::get('/dashboard', function () {
 // Game-overzicht: iedereen mag dit bekijken
 Route::get('/games', [GameController::class, 'index']);
 
-// Alleen admins mogen games beheren en bekijken
+// Alleen admins mogen games en de beheeromgeving beheren
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
     // Game Collection
@@ -29,8 +30,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/games/update/{id}', [GameController::class, 'update']);
     Route::post('/games/destroy/{id}', [GameController::class, 'destroy']);
 
-    // Permissies beheren
+    // Beheeromgeving
     Route::prefix('beheer')->name('admin.')->group(function () {
+
+        // Permissies beheren
         Route::get('/permissies', [PermissionController::class, 'index'])
             ->name('permissions.index');
 
@@ -48,6 +51,25 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
         Route::delete('/permissies/{permission}', [PermissionController::class, 'destroy'])
             ->name('permissions.destroy');
+
+        // Rollen beheren
+        Route::get('/rollen', [RoleController::class, 'index'])
+            ->name('roles.index');
+
+        Route::get('/rollen/create', [RoleController::class, 'create'])
+            ->name('roles.create');
+
+        Route::post('/rollen', [RoleController::class, 'store'])
+            ->name('roles.store');
+
+        Route::get('/rollen/{role}/edit', [RoleController::class, 'edit'])
+            ->name('roles.edit');
+
+        Route::put('/rollen/{role}', [RoleController::class, 'update'])
+            ->name('roles.update');
+
+        Route::delete('/rollen/{role}', [RoleController::class, 'destroy'])
+            ->name('roles.destroy');
     });
 });
 
