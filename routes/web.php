@@ -6,6 +6,7 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RolePermissionController;
+use App\Http\Controllers\UserRoleController;
 use Illuminate\Support\Facades\Route;
 
 // Startpagina
@@ -21,7 +22,7 @@ Route::get('/dashboard', function () {
 // Game-overzicht
 Route::get('/games', [GameController::class, 'index']);
 
-// Alleen admins mogen beheerpagina's openen
+// Beheerpagina's: alleen toegankelijk voor admins
 Route::middleware(['auth', 'role:admin'])
     ->prefix('beheer')
     ->name('admin.')
@@ -62,6 +63,14 @@ Route::middleware(['auth', 'role:admin'])
             ->name('role-permissions.store');
         Route::delete('/rol-permissies/{role}/{permission}', [RolePermissionController::class, 'destroy'])
             ->name('role-permissions.destroy');
+
+        // Rollen aan gebruikers koppelen
+        Route::get('/gebruiker-rollen', [UserRoleController::class, 'index'])
+            ->name('user-roles.index');
+        Route::post('/gebruiker-rollen', [UserRoleController::class, 'store'])
+            ->name('user-roles.store');
+        Route::delete('/gebruiker-rollen/{user}/{role}', [UserRoleController::class, 'destroy'])
+            ->name('user-roles.destroy');
     });
 
 // Profiel en geheime pagina: ingelogde gebruikers

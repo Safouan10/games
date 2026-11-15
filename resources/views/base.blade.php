@@ -30,6 +30,10 @@
                     <a class="nav-item nav-link" href="{{ route('admin.role-permissions.index') }}">
                         Permissies koppelen
                     </a>
+
+                    <a class="nav-item nav-link" href="{{ route('admin.user-roles.index') }}">
+                        Gebruikers en rollen
+                    </a>
                 @endrole
             @endauth
         </div>
