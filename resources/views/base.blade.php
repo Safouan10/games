@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -15,12 +16,22 @@
 
         <div class="navbar-nav">
             <a class="nav-item nav-link" href="/games">Games</a>
-            <a class="nav-item nav-link" href="{{ route('admin.permissions.index') }}">
-                Permissies beheren
-            </a>
-            <a class="nav-item nav-link" href="{{ route('admin.roles.index') }}">
-                Rollen beheren
-            </a>
+
+            @auth
+                @role('admin')
+                    <a class="nav-item nav-link" href="{{ route('admin.permissions.index') }}">
+                        Permissies beheren
+                    </a>
+
+                    <a class="nav-item nav-link" href="{{ route('admin.roles.index') }}">
+                        Rollen beheren
+                    </a>
+
+                    <a class="nav-item nav-link" href="{{ route('admin.role-permissions.index') }}">
+                        Permissies koppelen
+                    </a>
+                @endrole
+            @endauth
         </div>
     </nav>
 
